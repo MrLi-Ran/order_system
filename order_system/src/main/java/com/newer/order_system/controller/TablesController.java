@@ -41,4 +41,18 @@ public class TablesController {
         table.setId(id);
         tableService.updateTableName(table);
     }
+
+    /**
+     * 删除桌台
+     * @param id 桌台id
+     */
+    @DeleteMapping("/{id}")
+    public void deleteTable(@PathVariable Long id){
+        tableService.deleteTable(id);
+    }
+
+    @PutMapping("/")
+    public void changeTable(){
+
+    }
 }

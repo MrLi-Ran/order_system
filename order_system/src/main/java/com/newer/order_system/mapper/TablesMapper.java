@@ -14,4 +14,8 @@ public interface TablesMapper {
     void insertTable(String title);
 
     void updateTableName(@Param("title") String title,@Param("id") Long id);
+
+    void deleteTable(Long id);
+
+    void changeTable(Long from, Long to);
 }

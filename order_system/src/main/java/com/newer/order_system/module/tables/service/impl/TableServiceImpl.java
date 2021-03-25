@@ -32,10 +32,30 @@ public class TableServiceImpl implements TableService {
     }
 
     /**
-     * 修改桌台名
+     * 更改桌台名
+     * @param table 桌台实体
      */
     @Override
     public void updateTableName(Table table) {
         tablesMapper.updateTableName(table.getTitle(), table.getId());
+    }
+
+    /**
+     * 删除桌台
+     * @param id
+     */
+    @Override
+    public void deleteTable(Long id) {
+        tablesMapper.deleteTable(id);
+    }
+
+    /**
+     * 更换桌台
+     * @param from 被更换的台
+     * @param to 需要更换的台
+     */
+    @Override
+    public void changeTable(Long from, Long to) {
+
     }
 }

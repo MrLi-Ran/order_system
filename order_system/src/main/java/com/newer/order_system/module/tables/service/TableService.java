@@ -13,4 +13,8 @@ public interface TableService {
     void insertTable(Table table);
 
     void updateTableName(Table id);
+
+    void deleteTable(Long id);
+
+    void changeTable(Long from, Long to);
 }

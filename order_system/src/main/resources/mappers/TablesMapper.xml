@@ -3,17 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newer.order_system.mapper.TablesMapper">
-
+    <!-- 查找所有桌台 -->
     <select id="selectAll" resultType="com.newer.order_system.pojo.Table">
         select * from tables
     </select>
 
+    <!-- 添加桌台 -->
     <insert id="insertTable" parameterType="String">
         insert into tables (title) values (#{title})
     </insert>
 
+    <!--  -->
     <update id="updateTableName">
         update tables set title = #{title} where id = #{id}
     </update>
 
+    <delete id="deleteTable" parameterType="java.lang.Long">
+        delete from tables where id = #{id}
+    </delete>
 </mapper>
