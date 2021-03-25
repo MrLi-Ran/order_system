@@ -2,6 +2,7 @@ package com.newer.order_system.controller;
 
 import com.newer.order_system.module.tables.service.TableService;
 import com.newer.order_system.pojo.Table;
+import com.newer.order_system.pojo.Table2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +38,7 @@ public class TablesController {
      * @param table 桌台实体
      */
     @PutMapping("/{id}")
-    public void updateTableName(@PathVariable Long id,@RequestBody Table table){
-        table.setId(id);
+    public void updateTableName(@RequestBody Table table){
         tableService.updateTableName(table);
     }
 
@@ -51,8 +51,13 @@ public class TablesController {
         tableService.deleteTable(id);
     }
 
-    @PutMapping("/")
-    public void changeTable(){
-
+    /**
+     * 更换桌台
+     * @param from 当前桌台的实体
+     * @param to 更换桌台的id
+     */
+    @PutMapping("/{from}/table/{to}")
+    public void changeTable(@PathVariable long from, @PathVariable long to){
+        tableService.changeTable(from, to);
     }
 }

@@ -9,13 +9,19 @@ import java.util.List;
 
 @Repository
 public interface TablesMapper {
-    List<Table> selectAll();
+    List<Table> selectAll();// 查找所有桌台
 
-    void insertTable(String title);
+    Table findByID(long id);// 根据ID查找桌套
 
-    void updateTableName(@Param("title") String title,@Param("id") Long id);
+    void insertTable(String title);// 添加桌台
 
-    void deleteTable(Long id);
+    void updateTableName(@Param("title") String title,@Param("id") Long id);// 修改桌台名
 
-    void changeTable(Long from, Long to);
+    void tableOff(long id);// 关闭桌台
+
+    void tableOn(long id);// 开启桌台
+
+    void deleteTable(Long id);// 删除桌台
+
+    void updateTableBillRelationship();// 更改桌台订单关系
 }

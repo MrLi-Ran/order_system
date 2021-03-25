@@ -1,12 +1,17 @@
 package com.newer.order_system.pojo;
 
+import com.newer.order_system.Enum.TableStatus;
+
 import java.util.Objects;
 
-public class Table {
+public class Table2 {
     private long id;
     private String title;
     private int num;
-    private String status;
+    private Enum<TableStatus> status;
+
+    public Table2() {
+    }
 
     @Override
     public String toString() {
@@ -14,7 +19,7 @@ public class Table {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", num=" + num +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 '}';
     }
 
@@ -22,11 +27,11 @@ public class Table {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Table table = (Table) o;
-        return id == table.id &&
-                num == table.num &&
-                Objects.equals(title, table.title) &&
-                Objects.equals(status, table.status);
+        Table2 table2 = (Table2) o;
+        return id == table2.id &&
+                num == table2.num &&
+                Objects.equals(title, table2.title) &&
+                Objects.equals(status, table2.status);
     }
 
     @Override
@@ -58,11 +63,11 @@ public class Table {
         this.num = num;
     }
 
-    public String getStatus() {
+    public Enum<TableStatus> getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Enum<TableStatus> status) {
         this.status = status;
     }
 }

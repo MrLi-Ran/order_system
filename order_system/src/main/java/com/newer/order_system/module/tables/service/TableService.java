@@ -1,6 +1,7 @@
 package com.newer.order_system.module.tables.service;
 
 import com.newer.order_system.pojo.Table;
+import com.newer.order_system.pojo.Table2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,9 @@ public interface TableService {
 
     void insertTable(Table table);
 
-    void updateTableName(Table id);
+    void updateTableName(Table table);
 
-    void deleteTable(Long id);
+    void deleteTable(long id);
 
-    void changeTable(Long from, Long to);
+    void changeTable(long from, long to);
 }

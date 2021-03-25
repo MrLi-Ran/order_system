@@ -1,8 +1,10 @@
 package com.newer.order_system.module.tables.service.impl;
 
+
 import com.newer.order_system.mapper.TablesMapper;
 import com.newer.order_system.module.tables.service.TableService;
 import com.newer.order_system.pojo.Table;
+import com.newer.order_system.pojo.Table2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +47,7 @@ public class TableServiceImpl implements TableService {
      * @param id
      */
     @Override
-    public void deleteTable(Long id) {
+    public void deleteTable(long id) {
         tablesMapper.deleteTable(id);
     }
 
@@ -54,8 +56,26 @@ public class TableServiceImpl implements TableService {
      * @param from 被更换的台
      * @param to 需要更换的台
      */
+  /*  @Override
+    public void changeTable(Table1 from, Long to) {
+        // 1、传输数据
+
+        // 2、重置桌台
+
+    }*/
+
     @Override
-    public void changeTable(Long from, Long to) {
+    public void changeTable(long from, long to) {
+        // 转移数据
+        Table tableFrom = tablesMapper.findByID(from);
+        Table tableTo = tablesMapper.findByID(to);
+        tableTo.setNum(tableFrom.getNum());
+        // 重置from桌台
+        tablesMapper.tableOff(from);
+        // 更改桌台-订单关系
+
+        //打开to桌台
+        tablesMapper.tableOn(to);
 
     }
 }
