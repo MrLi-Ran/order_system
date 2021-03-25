@@ -24,6 +24,11 @@
         update tables set title = #{title} where id = #{id}
     </update>
 
+    <!-- 修改桌台人数 -->
+    <update id="updateTableNum">
+        update tables set num = #{num} where id = #{id}
+    </update>
+
     <!-- 删除桌台 -->
     <delete id="deleteTable" parameterType="java.lang.Long">
         delete from tables where id = #{id}
@@ -62,5 +67,26 @@
     <!-- 根据订单id修改当前订单桌台 -->
     <select id="updateTableAndBillRelationshipByBillId">
         update bills set table_id=#{tableId} where id=#{billId};
+    </select>
+
+    <!-- 根据订单id查找当前订单商品 -->
+    <select id="findProductsByTableID" parameterType="java.lang.Long" resultType="com.newer.order_system.pojo.Product">
+        select
+            pbd.id, pbd.title, pbd.kind, pbd.price, pbd.sales, pbd.status, pbd.repertory
+        from
+            bills b
+                left join
+            ( select
+                 bd.bill_id ,
+                     p.id, p.title, p.kind, p.price, p.sales, p.status, p.repertory,
+                 bd.count
+            from
+                 bills_detial bd
+                     left join
+                 products p
+                 on
+                     p.id = bd.product_id ) pbd
+            on
+                #{billId} = pbd.bill_id;
     </select>
 </mapper>

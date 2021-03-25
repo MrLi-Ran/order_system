@@ -1,6 +1,7 @@
 package com.newer.order_system.mapper;
 
 import com.newer.order_system.pojo.Bill;
+import com.newer.order_system.pojo.Product;
 import com.newer.order_system.pojo.Table;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,8 @@ public interface TablesMapper {
 
     void updateTableName(@Param("title") String title,@Param("id") Long id);// 修改桌台名
 
+    void updateTableNum(@Param("id") long id, @Param("num") int num);// 修改桌台人数
+
     void tableOff(long id);// 关闭桌台
 
     void tableOn(long id);// 开启桌台
@@ -27,4 +30,6 @@ public interface TablesMapper {
     Bill findBillsByTableID(@Param("tableId") long tableId);// 根据桌台id查找当前桌台订单信息
 
     void updateTableAndBillRelationshipByBillId(@Param("billId")long billId,@Param("tableId") long tableId);// 根据订单id更改桌台订单关系
+
+    List<Product> findProductsByTableID(long billId);// 根据账单id找到当前账单的商品信息
 }

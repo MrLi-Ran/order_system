@@ -1,6 +1,8 @@
 package com.newer.order_system.controller;
 
+import com.newer.order_system.Exeception.TableIsNotOpen;
 import com.newer.order_system.module.tables.service.TableService;
+import com.newer.order_system.pojo.Product;
 import com.newer.order_system.pojo.Table;
 import com.newer.order_system.pojo.Table2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +46,11 @@ public class TablesController {
 
     /**
      * 删除桌台
-     * @param id 桌台id
+     * @param tableId 桌台id
      */
-    @DeleteMapping("/{id}")
-    public void deleteTable(@PathVariable Long id){
-        tableService.deleteTable(id);
+    @DeleteMapping("/{tableId}")
+    public void deleteTable(@PathVariable Long tableId){
+        tableService.deleteTable(tableId);
     }
 
     /**
@@ -57,7 +59,16 @@ public class TablesController {
      * @param to 更换桌台的id
      */
     @PutMapping("/{from}/table/{to}")
-    public void changeTable(@PathVariable long from, @PathVariable long to){
-        tableService.changeTable(from, to);
+    public String changeTable(@PathVariable long from, @PathVariable long to){
+        try {
+            return tableService.changeTable(from, to);
+        } catch (TableIsNotOpen tableIsNotOpen) {
+            return "当前桌台未开启";
+        }
+    }
+
+    @GetMapping("/{tableId}/products")
+    public List<Product> findTableProducts(@PathVariable int tableId){
+        return tableService.findTableProducts(tableId);
     }
 }

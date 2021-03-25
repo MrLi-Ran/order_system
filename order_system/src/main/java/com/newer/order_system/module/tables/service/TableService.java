@@ -1,7 +1,8 @@
 package com.newer.order_system.module.tables.service;
 
+import com.newer.order_system.Exeception.TableIsNotOpen;
+import com.newer.order_system.pojo.Product;
 import com.newer.order_system.pojo.Table;
-import com.newer.order_system.pojo.Table2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface TableService {
 
     void deleteTable(long id);
 
-    void changeTable(long from, long to);
+    String changeTable(long from, long to) throws TableIsNotOpen;
+
+    List<Product> findTableProducts(long tableId);
 }
