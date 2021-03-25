@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.order_system.mapper.TablesMapper">
+
+    <select id="selectAll" resultType="com.newer.order_system.pojo.Table">
+        select * from tables
+    </select>
+
+    <insert id="insertTable" parameterType="String">
+        insert into tables (title) values (#{title})
+    </insert>
+
+    <update id="updateTableName">
+        update tables set title = #{title} where id = #{id}
+    </update>
+
+</mapper>
