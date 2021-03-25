@@ -1,5 +1,6 @@
 package com.newer.order_system.mapper;
 
+import com.newer.order_system.pojo.Bill;
 import com.newer.order_system.pojo.Table;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,7 @@ public interface TablesMapper {
 
     void deleteTable(Long id);// 删除桌台
 
-    void updateTableBillRelationship();// 更改桌台订单关系
+    Bill findBillsByTableID(@Param("tableId") long tableId);// 根据桌台id查找当前桌台订单信息
+
+    void updateTableAndBillRelationshipByBillId(@Param("billId")long billId,@Param("tableId") long tableId);// 根据订单id更改桌台订单关系
 }

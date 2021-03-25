@@ -3,6 +3,7 @@ package com.newer.order_system.module.tables.service.impl;
 
 import com.newer.order_system.mapper.TablesMapper;
 import com.newer.order_system.module.tables.service.TableService;
+import com.newer.order_system.pojo.Bill;
 import com.newer.order_system.pojo.Table;
 import com.newer.order_system.pojo.Table2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,8 @@ public class TableServiceImpl implements TableService {
         // 重置from桌台
         tablesMapper.tableOff(from);
         // 更改桌台-订单关系
-
+        Bill bill = tablesMapper.findBillsByTableID(from);
+        tablesMapper.updateTableAndBillRelationshipByBillId(bill.getId(), to);
         //打开to桌台
         tablesMapper.tableOn(to);
 
