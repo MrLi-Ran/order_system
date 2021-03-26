@@ -110,6 +110,7 @@ public class TableServiceImpl implements TableService {
 
             // 判断订单中是否已有插入的菜品，如果有则修改数量，如果没有则全部插入
             if (list.contains(productID)){
+                // 修改商品数量
                 tablesMapper.updateProductCount(productID, count);
             }else{
                 tablesMapper.insertProduct(billId, productID, count);
@@ -117,8 +118,15 @@ public class TableServiceImpl implements TableService {
         }
     }
 
+    /**
+     * 退菜操作
+     * @param tableId 桌台ID
+     * @param productId 商品ID
+     */
     @Override
     public void deleteProduct(long tableId, long productId) {
-
+        long billId = tablesMapper.findBillsByTableID(tableId).getId();// 订单ID
+        // 根据订单ID和商品ID删除当前桌台的该彩屏
+        tablesMapper.deleteProduct(billId, productId);
     }
 }

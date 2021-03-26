@@ -84,7 +84,7 @@ public class TablesController {
     }
 
     /**
-     *
+     * 加菜
      * @param tableId 当前桌台ID
      * @param list 插入的产品集合
      */
@@ -102,8 +102,9 @@ public class TablesController {
      * @param tableId 桌台ID
      * @param productId 产品ID
      */
-    @DeleteMapping("/{tableId}/products/{productId}")
+    @DeleteMapping("/{tableId}/product/{productId}")
     public void deleteProduct(@PathVariable long tableId, @PathVariable long productId){
         tableService.deleteProduct(tableId, productId);
     }
+
 }

@@ -106,7 +106,10 @@
         update bills_detail set count = count + #{count} where product_id = #{productId}
     </update>
 
-
+    <!-- 删除当前订单内的商品 -->
+    <delete id="deleteProduct" >
+        delete from bills_detail where bill_id=#{billId} &amp;&amp; product_id=#{productId}
+    </delete>
 
 
 

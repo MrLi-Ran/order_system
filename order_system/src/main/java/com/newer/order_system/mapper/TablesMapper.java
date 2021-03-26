@@ -6,7 +6,6 @@ import com.newer.order_system.pojo.Table;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -47,5 +46,7 @@ public interface TablesMapper {
             @Param("productId") long productId,
             @Param("count") long count );
 
-    void updateProductCount(@Param("productId") long productId,@Param("count") int count);
+    void updateProductCount(@Param("productId") long productId,@Param("count") int count);// 修改菜品数据
+
+    void deleteProduct(@Param("billId") long billId,@Param("productId") long productId);// 删除商品
 }
