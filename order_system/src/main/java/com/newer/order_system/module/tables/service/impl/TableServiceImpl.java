@@ -4,14 +4,13 @@ package com.newer.order_system.module.tables.service.impl;
 import com.newer.order_system.Exeception.TableIsNotOpen;
 import com.newer.order_system.mapper.TablesMapper;
 import com.newer.order_system.module.tables.service.TableService;
-import com.newer.order_system.pojo.Bill;
-import com.newer.order_system.pojo.Product;
-import com.newer.order_system.pojo.Table;
-import com.newer.order_system.pojo.Table2;
+import com.newer.order_system.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TableServiceImpl implements TableService {
@@ -91,5 +90,35 @@ public class TableServiceImpl implements TableService {
         Bill bill = tablesMapper.findBillsByTableID(tableId);
         // 根据账单查找当前桌台的菜品
         return tablesMapper.findProductsByTableID(bill.getId());
+    }
+
+    /**
+     * 加菜操作
+     * @param tableId 当前桌台ID
+     * @param map 产品id和数量
+     */
+    @Override
+    public void insertProduct(long tableId, HashMap<Long,Integer> map) {
+        // 通过桌台找到账单id
+        long billId = tablesMapper.findBillsByTableID(tableId).getId();
+        List<Long> list = tablesMapper.findProductIds(billId);
+
+        // 插入操作
+        for (Map.Entry<Long, Integer> entry : map.entrySet()){
+            long productID = entry.getKey();
+            int count = entry.getValue();
+
+            // 判断订单中是否已有插入的菜品，如果有则修改数量，如果没有则全部插入
+            if (list.contains(productID)){
+                tablesMapper.updateProductCount(productID, count);
+            }else{
+                tablesMapper.insertProduct(billId, productID, count);
+            }
+        }
+    }
+
+    @Override
+    public void deleteProduct(long tableId, long productId) {
+
     }
 }

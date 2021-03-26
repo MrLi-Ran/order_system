@@ -81,7 +81,7 @@
                      p.id, p.title, p.kind, p.price, p.sales, p.status, p.repertory,
                  bd.count
             from
-                 bills_detial bd
+                 bills_detail bd
                      left join
                  products p
                  on
@@ -89,4 +89,26 @@
             on
                 #{billId} = pbd.bill_id;
     </select>
+
+    <!-- 根据账单id查询商品id集合 -->
+    <select id="findProductIds" parameterType="java.lang.Long" resultType="java.lang.Long"><!-- 当查询结果为List时，
+                                                                                                  需要将resultType改成相应类型，否则报错 -->
+        select product_id from bills_detail where bill_id=#{billId}
+    </select>
+
+    <!-- 添加菜品 -->
+    <insert id="insertProduct">
+        insert into bills_detail(bill_id, product_id, count) values (#{billId},#{productId},#{count});
+    </insert>
+
+    <!-- 修改商品数量 -->
+    <update id="updateProductCount">
+        update bills_detail set count = count + #{count} where product_id = #{productId}
+    </update>
+
+
+
+
+
+
 </mapper>
