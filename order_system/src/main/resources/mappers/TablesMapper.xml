@@ -48,7 +48,7 @@
     <resultMap id="bills" type="com.newer.order_system.pojo.Bill">
         <!-- column为数据库字段名，property为实体类中属性名 -->
         <id column="id" property="id"/>
-        <result column="actual_money" property="actualMoney"/>
+        <result column="actual_money" property="actualMoney" />
         <result column="employee_id" property="employeeId"/>
         <result column="member_id" property="memberId"/>
         <result column="table_id" property="tableId"/>

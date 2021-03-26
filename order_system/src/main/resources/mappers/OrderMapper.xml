@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.order_system.mapper.OrderMapper">
+
+    <!-- 查找所有商品 -->
+    <select id="selectAll" resultType="com.newer.order_system.pojo.Product">
+        select * from products
+    </select>
+
+    <!-- 查找桌台 -->
+    <select id="findByID" parameterType="java.lang.Long" resultType="com.newer.order_system.pojo.Table">
+        select * from tables where id=#{id}
+    </select>
+
+    <!-- 修改桌台状态 -->
+    <update id="updateTableStatus" parameterType="java.lang.Long">
+        update tables set status='ON' where id=#{id}
+    </update>
+
+    <!-- 添加订单 -->
+    <insert id="insertBill" parameterType="com.newer.order_system.pojo.Bill">
+        insert
+        into bills (money, status, kind, employee_id, member_id, table_id)
+        values (#{money},#{status},#{kind},#{employee_id},#{member_id},#{table_id})
+    </insert>
+</mapper>

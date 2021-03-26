@@ -1,4 +1,4 @@
-package com.newer.order_system.module.tables.service.impl;
+package com.newer.order_system.module.tables.service;
 
 
 import com.newer.order_system.Exeception.TableIsNotOpen;

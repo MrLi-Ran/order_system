@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.order_system.mapper.HomePageMapper">
+    
+    <select id="selectAllTable" resultType="com.newer.order_system.pojo.Table">
+        select * from tables
+    </select>
+
+    <select id="selectAllProduct" resultType="com.newer.order_system.pojo.Product">
+        select * from products
+    </select>
+
+    <select id="selectAllEmployee" resultType="com.newer.order_system.pojo.Employee">
+        select * from employees
+    </select>
+
+</mapper>
