@@ -81,11 +81,11 @@ public class Product {
         this.status = status;
     }
 
-    public int getCount() {
+    public int getRepertory() {
         return repertory;
     }
 
-    public void setCount(int count) {
-        this.repertory = count;
+    public void setRepertory(int repertory) {
+        this.repertory = repertory;
     }
 }

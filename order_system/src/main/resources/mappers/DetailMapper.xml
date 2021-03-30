@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.order_system.mapper.DetailMapper">
+
+    <!-- 插入账单-商品关系表数据 -->
+    <insert id="insertBillDetail" parameterType="com.newer.order_system.pojo.BillsDetail">
+        insert into bills_detail(bill_id, product_id, count)
+        values (#{billId} ,#{productId}, #{count})
+    </insert>
+
+    <!-- 修改订单中商品数量 -->
+    <update id="updateProductCount">
+        update bills_detail set count = #{count} where product_id = #{productId}
+    </update>
+
+    <!-- 添加订单中没有的菜品 -->
+    <insert id="insertProduct">
+        insert into bills_detail(bill_id, product_id, count) values (#{billId},#{productId},#{count});
+    </insert>
+
+    <!-- 删除当前订单内的商品 -->
+    <delete id="deleteProduct" >
+        delete from bills_detail where bill_id=#{billId} &amp;&amp; product_id=#{productId}
+    </delete>
+
+</mapper>

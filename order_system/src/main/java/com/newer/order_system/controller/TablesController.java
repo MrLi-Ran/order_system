@@ -1,12 +1,14 @@
 package com.newer.order_system.controller;
 
 import com.newer.order_system.Exeception.TableIsNotOpen;
-import com.newer.order_system.module.tables.service.TableService;
+import com.newer.order_system.module.tables.PayService;
+import com.newer.order_system.module.tables.TableService;
 import com.newer.order_system.pojo.AddProduct;
+import com.newer.order_system.pojo.OrderProducts;
 import com.newer.order_system.pojo.Product;
 import com.newer.order_system.pojo.Table;
-import com.newer.order_system.pojo.Table2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,6 +20,9 @@ public class TablesController {
 
     @Autowired
     TableService tableService;
+
+    @Autowired
+    PayService payService;
 
     // 接受json数组参数
     @Autowired
@@ -55,8 +60,8 @@ public class TablesController {
      * @param tableId 桌台id
      */
     @DeleteMapping("/{tableId}")
-    public void deleteTable(@PathVariable Long tableId){
-        tableService.deleteTable(tableId);
+    public String deleteTable(@PathVariable Long tableId){
+        return tableService.deleteTable(tableId);
     }
 
     /**
@@ -74,31 +79,32 @@ public class TablesController {
     }
 
     /**
-     * 显示当前桌台商品信息
+     * 显示当前桌台商品和数量
      * @param tableId 桌台ID
      * @return 商品列表
      */
     @GetMapping("/{tableId}/products")
-    public List<Product> findTableProducts(@PathVariable int tableId){
+    public List<OrderProducts> findTableProducts(@PathVariable int tableId){
         return tableService.findTableProducts(tableId);
     }
 
     /**
      * 加菜
      * @param tableId 当前桌台ID
-     * @param list 插入的产品集合
+     * @param list 插入的商品集合
      */
     @PostMapping("/{tableId}/products")
-    public void insertProduct(@PathVariable long tableId,@RequestBody List<AddProduct> list){
+    public String insertProduct(@PathVariable long tableId,@RequestBody List<OrderProducts> list){
         HashMap<Long, Integer> map = new HashMap<>();
-        for (AddProduct item : list){
+        for (OrderProducts item : list){
             map.put(item.getProductId(), item.getCount());
         }
         tableService.insertProduct(tableId, map);
+        return "加菜成功";
     }
 
     /**
-     * 删除当前桌台订单内的某个菜品
+     * 退菜
      * @param tableId 桌台ID
      * @param productId 产品ID
      */
@@ -107,4 +113,18 @@ public class TablesController {
         tableService.deleteProduct(tableId, productId);
     }
 
+    /**
+     * 判断是否为会员
+     * @param telPhone 电话
+     * @return
+     */
+    @GetMapping("/{id}/member/{telPhone}")
+    @Transactional
+    public void isMember(
+            @PathVariable long id,
+            @PathVariable String telPhone){
+        payService.isMember(id, telPhone);
+    }
+
 }
+

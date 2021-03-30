@@ -27,11 +27,6 @@ public class HomePageRespond {
                 Objects.equals(employeeList, that.employeeList);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(tableList, productList, employeeList);
-    }
-
     public List<Table> getTableList() {
         return tableList;
     }

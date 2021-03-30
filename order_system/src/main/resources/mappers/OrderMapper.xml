@@ -19,10 +19,10 @@
         update tables set status='ON' where id=#{id}
     </update>
 
-    <!-- 添加订单 -->
-    <insert id="insertBill" parameterType="com.newer.order_system.pojo.Bill">
-        insert
-        into bills (money, status, kind, employee_id, member_id, table_id)
-        values (#{money},#{status},#{kind},#{employee_id},#{member_id},#{table_id})
-    </insert>
+    <!-- 修改桌台人数 -->
+    <update id="updateTablesNum">
+        update tables set num=#{num} where id=#{id}
+    </update>
+
+
 </mapper>

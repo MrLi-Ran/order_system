@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.order_system.mapper.BillMapper">
+
+    <!-- 添加订单 -->
+    <insert id="insertBill" parameterType="com.newer.order_system.pojo.Bill">
+        insert
+        into bills (money, status, kind, employee_id, member_id, table_id)
+        values (#{money},#{status},#{kind},#{employeeId},#{memberId},#{tableId})
+    </insert>
+
+    <!-- 修改订单状态信息 -->
+    <update id="updateBillStatus" parameterType="java.lang.Long">
+        update bills set status='已支付' ,complete=CURRENT_TIMESTAMP where id = #{id}
+    </update>
+
+    <!-- 根据订单id修改当前订单桌台 -->
+    <update id="updateTableAndBillRelationshipByBillId">
+        update bills set table_id=#{tableId} where id=#{billId};
+    </update>
+
+    <!-- 根据桌台id查找当前桌台订单信息 -->
+    <resultMap id="bills" type="com.newer.order_system.pojo.Bill">
+        <!-- column为数据库字段名，property为实体类中属性名 -->
+        <id column="id" property="id"/>
+        <result column="actual_money" property="actualMoney" />
+        <result column="employee_id" property="employeeId"/>
+        <result column="member_id" property="memberId"/>
+        <result column="table_id" property="tableId"/>
+    </resultMap>
+    <select id="findBillsByTableID" resultMap="bills">
+        select * from bills where table_id = #{tableId} &amp;&amp; status = '未支付';
+    </select>
+
+</mapper>

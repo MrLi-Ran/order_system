@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.order_system.mapper.MemberMapper">
+
+    <resultMap id="member" type="com.newer.order_system.pojo.Member">
+        <id column="id" property="id"/>
+        <result column="telphone" property="telPhone"/>
+        <result column="total_money" property="totalMoney"/>
+    </resultMap>
+    <select id="findByTelPhone" resultMap="member" parameterType="java.lang.String">
+        select * from member where telphone=#{telPhone}
+    </select>
+</mapper>

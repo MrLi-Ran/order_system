@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.order_system.mapper.ProductMapper">
+    <!-- 根据订单id查找当前订单商品 -->
+    <select id="findProductsByTableID" parameterType="java.lang.Long" resultType="com.newer.order_system.pojo.Product">
+        select
+            pbd.id, pbd.title, pbd.kind, pbd.price, pbd.sales, pbd.status, pbd.repertory
+        from
+            bills b
+                left join
+            ( select
+                  bd.bill_id ,
+                  p.id, p.title, p.kind, p.price, p.sales, p.status, p.repertory,
+                  bd.count
+              from
+                  bills_detail bd
+                      left join
+                  products p
+                  on
+                      p.id = bd.product_id
+            ) pbd
+            on
+                #{billId} = pbd.bill_id;
+    </select>
+
+
+    <!-- 查询当前订单的产品数量 -->
+    <select id="findProductCount" resultType="java.lang.Integer">
+        select count from bills_detail where bill_id=#{id} &amp;&amp; product_id=#{productId}
+    </select>
+
+    <!-- 根据账单id查询商品id集合 -->
+    <select id="findProductIds" parameterType="java.lang.Long" resultType="java.lang.Long"><!-- 当查询结果为List时，
+                                                                                              需要将resultType改成相应类型，否则报错 -->
+        select product_id from bills_detail where bill_id=#{billId}
+    </select>
+
+    <!-- 查询订单内的商品id和数量 -->
+    <select id="findProductIdsAndCount" resultType="java.util.Map">
+        select product_id, count from bills_detail where bill_id = #{billId}
+    </select>
+</mapper>
